@@ -7,13 +7,13 @@ import streamlit as st
 st.set_page_config(page_title="TSP Solver", layout="wide")
 
 # --- Default Data ---
-DEFAULT_CITIES = ["Gliwice", "Cairo", "Rome", "Krakow", "Paris", "Alexandria", "Berlin", "Tokyo", "Rio", "Budapest"]
-DEFAULT_X = [0, 3, 6, 9, 15, 10, 16, 5, 8, 1.5]
-DEFAULT_Y = [1, 2, 1, 4.5, -1, 2.5, 11, 4, 9, 12]
+DEFAULT_CITIES = ["New Delhi", "Hanoi", "Beijing", "Seoul", "Tokyo", "Manila", "Bangkok", "Kuala Lumpur", "Jakarta", "Dhaka"]
+DEFAULT_X = [1, 6, 7, 8, 15, 16, 16, 8, 8, 1, 4]
+DEFAULT_Y = [12, 11, 15, 14.5, 14, 8, 8, 6, 7, 11.5]
 
 CITY_ICONS = {
-    "Gliwice": "♕", "Cairo": "♖", "Rome": "♗", "Krakow": "♘", "Paris": "♙",
-    "Alexandria": "♔", "Berlin": "♚", "Tokyo": "♛", "Rio": "♜", "Budapest": "♝"
+    "New Delhi": "♕", "Hanoi": "♖", "Beijing": "♗", "Seoul": "♘", "Tokyo": "♙",
+    "Manila": "♔", "Bangkok": "♚", "Kuala Lumpur": "♛", "Jakarta": "♜", "Dhaka": "♝"
 }
 
 # --- Helper Functions ---
