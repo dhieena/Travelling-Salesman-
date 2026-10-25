@@ -24,6 +24,10 @@ def plot_city_network(city_coords):
     fig, ax = plt.subplots(figsize=(12, 8))
     ax.grid(False)
 
+    # Explicitly set axis limits starting from 0
+    ax.set_xlim(0, 18)
+    ax.set_ylim(0, 18)
+
     for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
         color = colors[i % len(colors)]
         icon = CITY_ICONS.get(city, "📍")
