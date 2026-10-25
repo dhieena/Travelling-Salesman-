@@ -16,7 +16,7 @@ CITY_ICONS = {
     "Alexandria": "♔", "Berlin": "♚", "Tokyo": "♛", "Rio": "♜", "Budapest": "♝"
 }
 
-# --- Helper Plotting Function ---
+# --- Helper Functions ---
 def plot_city_network(city_coords):
     cities = list(city_coords.keys())
     colors = sns.color_palette("pastel", len(cities))
@@ -32,14 +32,12 @@ def plot_city_network(city_coords):
         ax.annotate(icon, (city_x, city_y), fontsize=30, ha='center', va='center', zorder=3)
         ax.annotate(city, (city_x, city_y), fontsize=10, ha='center', va='bottom', xytext=(0, -25), textcoords='offset points')
 
-        # Connect all cities with opaque lines
         for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
             if i != j:
                 ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.15)
 
     return fig
 
-# --- Genetic Algorithm Functions ---
 def dist_two_cities(c1_coords, c2_coords):
     return np.sqrt(np.sum((np.array(c1_coords) - np.array(c2_coords)) ** 2))
 
@@ -103,15 +101,22 @@ def run_ga(cities_names, city_coords, n_population=250, n_generations=20, crosso
     return best_route, best_dist
 
 # ==========================================
-# SINGLE PAGE APP
+# SINGLE PAGE INTERFACE
 # ==========================================
 st.title("Traveling Salesman Problem (TSP) Solver")
 
-# 1. City Coordinate Input Form
-st.subheader("Configure Cities & Coordinates")
+# 1. Show Initial Full Network Diagram
+st.subheader("Initial City Network")
+default_coords = dict(zip(DEFAULT_CITIES, zip(DEFAULT_X, DEFAULT_Y)))
+fig_initial = plot_city_network(default_coords)
+st.pyplot(fig_initial)
 
+st.divider()
+
+# 2. City Coordinate Input Form
+st.subheader("Customize City Coordinates")
 with st.form("city_input_form"):
-    active_coords = {}
+    updated_city_coords = {}
     
     for i in range(10):
         col1, col2, col3 = st.columns(3)
@@ -138,29 +143,22 @@ with st.form("city_input_form"):
             )
 
         if city_name.strip():
-            active_coords[city_name.strip()] = (x_val, y_val)
+            updated_city_coords[city_name.strip()] = (x_val, y_val)
 
     submitted = st.form_submit_button("Submit")
-
-st.divider()
-
-# 2. Render Updated City Network
-st.subheader("City Network Plot")
-fig_network = plot_city_network(active_coords)
-st.pyplot(fig_network)
 
 # 3. Calculate and Render Best Route on Submit
 if submitted:
     st.divider()
     st.subheader("Optimized TSP Route Results")
     
-    cities_list = list(active_coords.keys())
+    cities_list = list(updated_city_coords.keys())
     
     if len(cities_list) >= 2:
-        best_route, min_dist = run_ga(cities_list, active_coords)
+        best_route, min_dist = run_ga(cities_list, updated_city_coords)
         
-        x_shortest = [active_coords[c][0] for c in best_route] + [active_coords[best_route[0]][0]]
-        y_shortest = [active_coords[c][1] for c in best_route] + [active_coords[best_route[0]][1]]
+        x_shortest = [updated_city_coords[c][0] for c in best_route] + [updated_city_coords[best_route[0]][0]]
+        y_shortest = [updated_city_coords[c][1] for c in best_route] + [updated_city_coords[best_route[0]][1]]
 
         fig_route, ax = plt.subplots(figsize=(12, 8))
         ax.plot(x_shortest, y_shortest, '--go', label='Best Route', linewidth=2.5, markersize=8)
