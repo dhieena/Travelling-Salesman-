@@ -8,8 +8,8 @@ st.set_page_config(page_title="TSP Solver", layout="wide")
 
 # --- Default Data ---
 DEFAULT_CITIES = ["New Delhi", "Hanoi", "Beijing", "Seoul", "Tokyo", "Manila", "Bangkok", "Kuala Lumpur", "Jakarta", "Dhaka"]
-DEFAULT_X = [1, 6, 10, 13, 16, 13, 7, 6, 8, 4]
-DEFAULT_Y = [12, 11, 15, 14.5, 14, 8, 9, 8, 7, 10]
+DEFAULT_X = [2, 6, 10, 13, 16, 13, 7, 6, 8, 4]
+DEFAULT_Y = [13, 11, 15, 14.5, 14, 8, 9, 8, 7, 10]
 
 CITY_ICONS = {
     "New Delhi": "♕", "Hanoi": "♖", "Beijing": "♗", "Seoul": "♘", "Tokyo": "♙",
